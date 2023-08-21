@@ -1,0 +1,31 @@
+service: serverless-fintech-app
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+
+functions:
+  handleTransaction:
+    handler: handleTransaction
+    events:
+      - http:
+          path: transactions/{userId}
+          method: get
+
+resources:
+  Resources:
+    TransactionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Transactions
+        AttributeDefinitions:
+          - AttributeName: transactionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: transactionId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
