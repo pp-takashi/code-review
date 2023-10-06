@@ -11,7 +11,7 @@ functions:
     handler: handleTransaction
     events:
       - http:
-          path: transactions/{userId}
+          path: transactions/get-user-by-id/{userId}
           method: get
 
 resources:
