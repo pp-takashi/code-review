@@ -1,28 +1,35 @@
-import { DynamoDB } from "aws-sdk";
+const AWS = require("aws-sdk");
 
-export const handleTransaction = async (event: any): Promise<any> => {
-  const dynamoDB = new DynamoDB();
+function handleTransaction(event: any) {
+  const dynamoDB = new AWS.DynamoDB();
   try {
-    const userId = event.queryStringParameters.userId;
+    var querystringParam = event.queryStringParameters.userId;
 
-    const params = {
+    var params = {
       TableName: "Transactions",
-      KeyConditionExpression: "userId = :userId",
+      KeyConditionExpression: "userId = :id",
       ExpressionAttributeValues: {
-        ":userId": userId,
+        ":id": querystringParam,
       },
     };
-    const result = await dynamoDB.scan(params).promise();
-
-    const transactions = result.Items;
-    return {
-      statusCode: 200,
-      body: JSON.stringify(transactions),
-    };
+    return dynamoDB.scan(params).promise()
+      .then(function(result) {
+        var transactions = result.Items;
+        return {
+          statusCode: 200,
+          body: JSON.stringify(transactions),
+        };
+      })
+      .catch(function(error) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ error: "An error occurred" }),
+        };
+      });
   } catch (error) {
     return {
-      statusCode: 500,
+      statusCode: 200,
       body: JSON.stringify({ error: "An error occurred" }),
     };
   }
-};
+}
