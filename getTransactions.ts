@@ -1,7 +1,7 @@
-const AWS = require("aws-sdk");
+import { DynamoDB } from "aws-sdk";
 
-function handleTransaction(event: any) {
-  const dynamoDB = new AWS.DynamoDB();
+export handleTransaction = async (event: any): Promise<any> => {
+  const dynamoDB = new DynamoDB();
   try {
     var querystringParam = event.queryStringParameters.userId;
 
