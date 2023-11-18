@@ -6,19 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage",
-    "build:test": "yarn build && yarn coverage",
-    "lint": "eslint . --ext js,ts --cache --fix",
-    "prettier": "prettier --list-different './**/*.{js,ts}' --write",
-    "deploy": "sls deploy --verbose",
-    "df": "sls deploy function -f",
-    "dt": "sls deploy --verbose --aws-profile tst --stage tst",
-    "dtf": "sls deploy function --aws-profile tst --stage tst -f",
-    "dd": "sls deploy --verbose --aws-profile dev --stage dev",
-    "package": "sls package",
-    "rm-versions:dry": "sls prune -n 2 --dryRun",
-    "rm-versions": "sls prune -n 2",
-    "prepare": "husky install",
-    "verify": "tsc --noEmit && lint-staged"
+    "deploy": "sls deploy --verbose"
   },
   "author": "PayPerform",
   "license": "ISC",

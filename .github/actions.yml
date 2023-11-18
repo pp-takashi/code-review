@@ -1,0 +1,17 @@
+name: Deploy package to GitHub package registry
+on:
+  push:
+    branches: [develop]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Deploy
+        run: |
+          yarn test
+          yarn deploy
