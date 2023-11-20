@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage",
-    "deploy": "sls deploy --verbose"
+    "deploy": "sls deploy --verbose",
+    "lint": "eslint . --ext js,ts --cache --fix",
+    "prettier": "prettier --list-different './**/*.{js,ts}' --write",
   },
   "author": "PayPerform",
   "license": "ISC",
